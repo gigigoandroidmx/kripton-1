@@ -1,0 +1,40 @@
+apply plugin: 'com.android.application'
+
+def STRING   = "String";
+def HOST_APP = "HOST_APP";
+
+def ID_USER = "ID_USER";
+def KEY_GOOGLE = "KEY_GOOGLE";
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        applicationId "com.gigigo.kripton"
+        minSdkVersion 15
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+
+        buildConfigField STRING, HOST_APP, '"https://www.googleapis.com/youtube/v3/"'
+        buildConfigField STRING, ID_USER, '"UCVHFbqXqoYvEWM1Ddxl0QDg"'
+        buildConfigField STRING, KEY_GOOGLE, '"AIzaSyBPlVYsLeKqj9u7wjIQFzamljTaFKPVFSE"'
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+    compile 'com.android.support:recyclerview-v7:23.4.0'
+    compile project(path: ':KMvp')
+    compile project(path: ':KExtensions')
+}
+

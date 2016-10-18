@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Kripton</string>
+    <string name="title_dialog_load">Cargando…</string>
+</resources>

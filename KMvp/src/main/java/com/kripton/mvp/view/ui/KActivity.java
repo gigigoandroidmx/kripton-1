@@ -1,0 +1,45 @@
+package com.kripton.mvp.view.ui;
+
+import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
+
+import com.kripton.mvp.presenter.KPresenter;
+import com.kripton.mvp.view.IView;
+
+
+/**
+ * Created by Daniel on 30/06/2016.
+ */
+public abstract class KActivity extends KBaseActivity implements IView {
+
+    protected   KPresenter mPresenter;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(getLayoutId());
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
+        setContentView(getLayoutId());
+    }
+
+    public abstract void createPresenter();
+
+
+    public abstract int getLayoutId();
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(mPresenter != null){
+            mPresenter.detachView();
+        }
+
+    }
+
+
+}
