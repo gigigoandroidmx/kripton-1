@@ -122,7 +122,7 @@ public class KPresenter<T extends IKInteractor<T>>
                 if(!isViewAttached()) return;
 
                 getView().setProgressIndicator(false);
-                getView().showDataNotAvailable(String.format("", message, code));
+                getView().showDataNotAvailable(code, message);
             }
 
             @Override

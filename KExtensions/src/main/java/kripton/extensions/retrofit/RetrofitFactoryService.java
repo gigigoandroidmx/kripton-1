@@ -6,7 +6,6 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.kripton.mvp.interactor.ILoaderCallback;
 import com.kripton.mvp.model.HttpStatusCode;
 import com.kripton.mvp.model.SimpleHttpResponse;
 

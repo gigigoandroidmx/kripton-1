@@ -64,7 +64,7 @@ public interface IKViewContract {
      * <li>{@link #showError(Throwable)}: Permite mostrar un error derivado de la ejecución de la tarea.</li>
      * <li>{@link #setProgressIndicator(boolean)}: Permite notificar a la vista que existe una tarea en ejecución mediante un indicador de progreso.</li>
      * <li>{@link #showDataEmpty()}: Permite notificar a la vista cuando el resultado de la tarea no tiene contenido.</li>
-     * <li>{@link #showDataNotAvailable(String)}: Permite notificar a la vista cuando el resultado de la consulta no se encuentra disponible.</li>
+     * <li>{@link #showDataNotAvailable(int, String)}: Permite notificar a la vista cuando el resultado de la consulta no se encuentra disponible.</li>
      * </ul>
      *
      * @param <T> Representa el modelo de datos que utilizará la vista
@@ -76,7 +76,7 @@ public interface IKViewContract {
     interface IViewExtended<T>
             extends IViewSimple<T> {
         void showDataEmpty();
-        void showDataNotAvailable(String message);
+        void showDataNotAvailable(int code, String message);
     }
 
     /**

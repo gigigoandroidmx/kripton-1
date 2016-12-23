@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 
 import com.gigigo.example.api.PlayListService;
 import com.gigigo.example.model.PlayListItem;
-import com.kripton.mvp.interactor.ILoaderCallback;
 import com.kripton.mvp.interactor.KInteractor;
 
 import kripton.extensions.retrofit.RetrofitFactoryService;

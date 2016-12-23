@@ -18,8 +18,6 @@ import com.gigigo.example.interactor.PlayListInteractor;
 import com.gigigo.example.model.Item;
 import com.gigigo.example.model.PlayListItem;
 import com.kripton.mvp.presenter.KPresenter;
-import com.kripton.mvp.view.IView;
-import com.kripton.mvp.view.ui.KBaseFragment;
 import com.kripton.mvp.view.ui.adapter.ItemListener;
 
 /**
