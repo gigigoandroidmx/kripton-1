@@ -1,4 +1,4 @@
-package kripton.extensions;
+package com.extensions;
 
 import org.junit.Test;
 
