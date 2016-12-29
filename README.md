@@ -1,9 +1,6 @@
 ===================================
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 
-
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/Gigigo-Android-Devs/kripton/master/LICENSE)
-
 # Krypton Framenwork
 
 Es una librería para Android que permite a los desarrolladores crear aplicaciones robustas implementando el patrón MVP de forma simple.
