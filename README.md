@@ -1,7 +1,7 @@
 ===================================
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 
-# Krypton Framework
+# Krypton Library
 
 Es una librería para Android que permite a los desarrolladores crear aplicaciones robustas implementando el patrón MVP de forma simple.
 
