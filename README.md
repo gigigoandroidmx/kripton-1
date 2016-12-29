@@ -5,9 +5,9 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/Gigigo-Android-Devs/kripton/master/LICENSE)
 
 # Krypton Framenwork
-```
+
 Es una librería para Android que permite a los desarrolladores crear aplicaciones robustas implementando el patrón MVP de forma simple.
-```
+
 
 # License
 ```
