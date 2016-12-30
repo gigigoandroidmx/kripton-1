@@ -1,9 +1,9 @@
 ===================================
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 
-# Krypton Library
+# Kripton
 
-Es una librería para Android que permite a los desarrolladores crear aplicaciones robustas implementando el patrón MVP de forma simple.
+Es una librería que permite a los desarrolladores crear aplicaciones robustas para Android implementando el patrón MVP de forma simple.
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 # License
