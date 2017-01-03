@@ -1,4 +1,4 @@
-/* Copyright 2016 gigigo México
+/* Copyright (c) 2016 Gigigo Android Development Team México
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,9 +23,7 @@ import com.google.gson.GsonBuilder;
 
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -49,12 +47,6 @@ public class ServiceGenerator {
         return sServiceSettings;
     }
 
-    private static Interceptor getInterceptor() {
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        return loggingInterceptor;
-    }
-
     private static OkHttpClient getClient() {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
@@ -62,7 +54,13 @@ public class ServiceGenerator {
                 .writeTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(30, TimeUnit.SECONDS);
 
-        builder.interceptors().add(getInterceptor());
+        if(getSettings().getLoggingInterceptor() != null) {
+            builder.interceptors().add(getSettings().getLoggingInterceptor());
+        }
+
+        if(getSettings().getConnectivityInterceptor() != null) {
+            builder.interceptors().add(getSettings().getConnectivityInterceptor());
+        }
 
         return builder.build();
     }
@@ -96,4 +94,5 @@ public class ServiceGenerator {
         Retrofit retrofit = getRetrofitInstance();
         return retrofit.create(classType);
     }
+
 }

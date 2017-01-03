@@ -4,6 +4,7 @@ package com.gigigo.example.presentation.fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -27,6 +28,7 @@ public class ChannelFragment
         extends KFragment<ChannelItem, KPresenter<ChannelItem>> {
 
     private ChannelAdapter mAdapter;
+    private boolean mIsRefreshing;
 
     public static ChannelFragment newInstance() {
         return new ChannelFragment();
@@ -55,6 +57,10 @@ public class ChannelFragment
                 2, //number of grid columns
                 GridLayoutManager.VERTICAL);
 
+        SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout)root.findViewById(R.id.swipe_refresh_view);
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
+        swipeRefreshLayout.setOnRefreshListener(refreshListener);
+
         RecyclerView recyclerView = (RecyclerView)root.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
@@ -62,6 +68,16 @@ public class ChannelFragment
 
         return root;
     }
+
+    SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+        @Override
+        public void onRefresh() {
+            if(!mIsRefreshing) {
+                mIsRefreshing = true;
+                mPpresenter.loadData(true);
+            }
+        }
+    };
 
     @Override
     protected KPresenter<ChannelItem> createPresenter() {
@@ -72,34 +88,50 @@ public class ChannelFragment
     @Override
     public void onResume() {
         super.onResume();
-
         mPpresenter.loadData(false);
     }
 
     @Override
     public void showDataEmpty() {
-
+        onSwipeRefreshComplete();
     }
 
     @Override
     public void showDataNotAvailable(String message) {
         showErrorView(message);
+        onSwipeRefreshComplete();
     }
 
     @Override
     public void showData(ChannelItem data) {
         if(data.hasItems()) {
+            mAdapter.clear();
             mAdapter.add(data.mItems);
+        }
+        onSwipeRefreshComplete();
+    }
+
+    private void onSwipeRefreshComplete() {
+        if(getView() ==  null) return;
+
+        if(mIsRefreshing) {
+            mIsRefreshing = false;
+            SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) getView().findViewById(R.id.swipe_refresh_view);
+            if (swipeRefreshLayout != null) {
+                swipeRefreshLayout.setRefreshing(false);
+            }
         }
     }
 
     @Override
     public void showError(Throwable exception) {
         showErrorView(exception);
+        onSwipeRefreshComplete();
     }
 
     @Override
     public void setProgressIndicator(boolean active) {
         showProgressBar(active);
+        onSwipeRefreshComplete();
     }
 }

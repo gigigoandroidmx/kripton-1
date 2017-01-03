@@ -1,4 +1,4 @@
-/* Copyright 2016 gigigo México
+/* Copyright (c) 2016 Gigigo Android Development Team México
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,5 +31,6 @@ public interface IKRepository<T> {
     void add(Iterable<T> items);
     void update(T item);
     void remove(T item);
+    void clear();
     List<T> query();
 }

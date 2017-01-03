@@ -1,4 +1,4 @@
-/* Copyright 2016 gigigo México
+/* Copyright (c) 2016 Gigigo Android Development Team México
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@ package com.kripton.extensions.retrofit;
 
 import android.content.Context;
 
+import okhttp3.Interceptor;
 import retrofit2.CallAdapter;
 
 /**
@@ -34,6 +35,8 @@ public class ServiceSettings {
     private String mApplicationTag;
     private String mDateFormat = DATE_FORMAT;
     private CallAdapter.Factory mFactory;
+    private Interceptor mLoggingInterceptor;
+    private Interceptor mConnectivityInterceptor;
 
     public Context getContext() {
         return mContext;
@@ -75,8 +78,26 @@ public class ServiceSettings {
         return mDateFormat;
     }
 
-    public ServiceSettings setDateFormat(String mDateFormat) {
-        this.mDateFormat = mDateFormat;
+    public ServiceSettings setDateFormat(String dateFormat) {
+        this.mDateFormat = dateFormat;
+        return this;
+    }
+
+    public Interceptor getLoggingInterceptor() {
+        return mLoggingInterceptor;
+    }
+
+    public ServiceSettings setLoggingInterceptor(Interceptor interceptor) {
+        mLoggingInterceptor = interceptor;
+        return this;
+    }
+
+    public Interceptor getConnectivityInterceptor() {
+        return mConnectivityInterceptor;
+    }
+
+    public ServiceSettings setConnectivityInterceptor(Interceptor interceptor) {
+        mConnectivityInterceptor = interceptor;
         return this;
     }
 }

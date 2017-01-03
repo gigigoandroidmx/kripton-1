@@ -13,23 +13,17 @@
  * limitations under the License.
  */
 
-package com.kripton.mvp.presentation.presenter;
-
-import com.kripton.mvp.presentation.view.IKViewContract;
+package com.kripton.extensions.retrofit;
 
 /**
- * Interfaz base para el presenter
+ * Define la interfaz base para la validación de conexión de red.
  *
- * @param <V> Representa la vista para el despliegue de información
- *
- * @author Juan Godínez Vera - 12/22/2016
+ * @author Juan Godínez Vera - 1/13/2017
  * @version 1.0.0
  * @since 1.0.0
  */
-public interface IKPresenter<V extends IKViewContract.IViewExtended> {
-    void attachView(V view);
-    void detachView();
-    void onResume();
-    void onDestroy();
-    void loadData(boolean forceUpdate);
+public interface IConnectivity {
+    boolean isConnected();
+    int connectivityType();
+    boolean isReachable(String host, int timeout);
 }
