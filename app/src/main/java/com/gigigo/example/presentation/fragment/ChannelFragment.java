@@ -17,15 +17,24 @@ import com.gigigo.example.data.entities.ChannelItem;
 import com.gigigo.example.data.entities.Item;
 import com.gigigo.example.domain.interactor.YoutubeInteractor;
 import com.gigigo.example.presentation.adapter.ChannelAdapter;
+import com.gigigo.example.presentation.base.KBaseFragment;
 import com.kripton.mvp.presentation.IKCommandContract;
 import com.kripton.mvp.presentation.fragment.KFragment;
 import com.kripton.mvp.presentation.presenter.KPresenter;
+
+import butterknife.BindView;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ChannelFragment
-        extends KFragment<ChannelItem, KPresenter<ChannelItem>> {
+        extends KBaseFragment<ChannelItem, KPresenter<ChannelItem>> {
+
+    @BindView(R.id.swipe_refresh_view)
+    SwipeRefreshLayout swipeRefreshLayout;
+
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
 
     private ChannelAdapter mAdapter;
     private boolean mIsRefreshing;
@@ -47,29 +56,7 @@ public class ChannelFragment
         }
     };
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View root = inflater.inflate(R.layout.fragment_channel, container, false);
-
-        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(
-                2, //number of grid columns
-                GridLayoutManager.VERTICAL);
-
-        SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout)root.findViewById(R.id.swipe_refresh_view);
-        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
-        swipeRefreshLayout.setOnRefreshListener(refreshListener);
-
-        RecyclerView recyclerView = (RecyclerView)root.findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(staggeredGridLayoutManager);
-        recyclerView.setAdapter(mAdapter);
-
-        return root;
-    }
-
-    SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
+    private SwipeRefreshLayout.OnRefreshListener refreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
             if(!mIsRefreshing) {
@@ -78,6 +65,25 @@ public class ChannelFragment
             }
         }
     };
+
+    @Override
+    protected int getLayoutResourceId() {
+        return R.layout.fragment_channel;
+    }
+
+    @Override
+    protected void initializeComponent() {
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(
+                2, //number of grid columns
+                GridLayoutManager.VERTICAL);
+
+        swipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
+        swipeRefreshLayout.setOnRefreshListener(refreshListener);
+
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(staggeredGridLayoutManager);
+        recyclerView.setAdapter(mAdapter);
+    }
 
     @Override
     protected KPresenter<ChannelItem> createPresenter() {
@@ -112,11 +118,9 @@ public class ChannelFragment
     }
 
     private void onSwipeRefreshComplete() {
-        if(getView() ==  null) return;
-
         if(mIsRefreshing) {
             mIsRefreshing = false;
-            SwipeRefreshLayout swipeRefreshLayout = (SwipeRefreshLayout) getView().findViewById(R.id.swipe_refresh_view);
+
             if (swipeRefreshLayout != null) {
                 swipeRefreshLayout.setRefreshing(false);
             }

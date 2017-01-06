@@ -23,7 +23,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.kripton.R;
+import com.kripton.mvp.R;
 import com.kripton.mvp.presentation.presenter.IKPresenter;
 import com.kripton.mvp.presentation.view.IKViewContract;
 
@@ -52,6 +52,14 @@ public abstract class KActivity<T, P extends IKPresenter>
 
         if(loader != null) {
             loader.setVisibility(active ? View.VISIBLE : View.GONE);
+        }
+    }
+    protected void hideErrorView() {
+        TextView errorView = (TextView)findViewById(R.id.error_view);
+
+        if(errorView != null) {
+            errorView.setText("");
+            errorView.setVisibility(View.GONE);
         }
     }
 
@@ -105,5 +113,4 @@ public abstract class KActivity<T, P extends IKPresenter>
     }
 
     //endregion
-
 }

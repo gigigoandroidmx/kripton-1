@@ -12,6 +12,10 @@ import com.gigigo.example.data.entities.Thumbnail;
 import com.kripton.mvp.presentation.IKCommandContract;
 import com.kripton.mvp.presentation.adapter.KViewHolder;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * Define la clase para ...
  *
@@ -20,18 +24,33 @@ import com.kripton.mvp.presentation.adapter.KViewHolder;
 public class ChannelViewHolder
         extends KViewHolder<Item> {
 
-    private ImageView mThumbnail;
-    private View mPlayIcon;
-    private TextView mTitle;
-    private TextView mDescription;
+    @BindView(R.id.img_thumbnail)
+    ImageView mThumbnail;
 
-    public ChannelViewHolder(View itemView, IKCommandContract.IActionCommand<Item> actionCommand) {
-        super(itemView, actionCommand);
+    @BindView(R.id.img_play)
+    View mPlayIcon;
 
-        mThumbnail = (ImageView) itemView.findViewById(R.id.img_thumbnail);
-        mPlayIcon = itemView.findViewById(R.id.img_play);
-        mTitle = (TextView) itemView.findViewById(R.id.txt_title);
-        mDescription = (TextView) itemView.findViewById(R.id.txt_description);
+    @BindView(R.id.txt_title)
+    TextView mTitle;
+
+    @BindView(R.id.txt_description)
+    TextView mDescription;
+
+    public ChannelViewHolder(View itemView) {
+        super(itemView);
+        ButterKnife.bind(this, itemView);
+    }
+
+    @Override
+    public void setOnExecuteCommand(final IKCommandContract.IActionCommand<Item> actionCommand) {
+        if(actionCommand != null) {
+            mPlayIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    actionCommand.onExecute(getItem());
+                }
+            });
+        }
     }
 
     @Override

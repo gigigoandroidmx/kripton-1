@@ -37,28 +37,22 @@ public abstract class KViewHolder<T>
     protected Context mContext;
 
     private T mItem;
-    private IKCommandContract.IActionCommand<T> mActionCommand;
 
     public KViewHolder(View itemView) {
-        this(itemView, null);
-    }
-
-    public KViewHolder(View itemView, IKCommandContract.IActionCommand<T> actionCommand) {
         super(itemView);
-        this.mContext = itemView.getContext();
-
-        if(actionCommand != null) {
-            mActionCommand = actionCommand;
-            itemView.setOnClickListener(itemViewClickListener);
-        }
+        mContext = itemView.getContext();
     }
 
-    View.OnClickListener itemViewClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            mActionCommand.onExecute(getItem());
+    public void setOnExecuteCommand(final IKCommandContract.IActionCommand<T> actionCommand) {
+        if(actionCommand != null) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    actionCommand.onExecute(getItem());
+                }
+            });
         }
-    };
+    }
 
     public void onBindViewHolder(@NonNull T item) {
         this.mItem = item;

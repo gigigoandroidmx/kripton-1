@@ -2,6 +2,9 @@
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 
 # Kripton
+===================================
+
+![Logo](assets/logo.png)
 
 Es una librería que permite a los desarrolladores crear aplicaciones robustas para Android implementando el patrón MVP de forma simple.
 

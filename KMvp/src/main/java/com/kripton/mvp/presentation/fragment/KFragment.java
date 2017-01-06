@@ -23,7 +23,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.kripton.R;
+import com.kripton.mvp.R;
 import com.kripton.mvp.presentation.presenter.IKPresenter;
 import com.kripton.mvp.presentation.view.IKViewContract;
 
@@ -57,7 +57,7 @@ public abstract class KFragment<T, P extends IKPresenter>
         }
     }
 
-    protected  void hideErrorView() {
+    protected void hideErrorView() {
         if(getView() == null) return;
 
         TextView errorView = (TextView)getView().findViewById(R.id.error_view);

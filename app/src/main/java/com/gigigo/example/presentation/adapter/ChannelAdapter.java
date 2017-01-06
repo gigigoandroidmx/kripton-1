@@ -26,7 +26,8 @@ public class ChannelAdapter
     @Override
     public KViewHolder<Item> onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = getView(parent, R.layout.item_channel);
-        ChannelViewHolder viewHolder = new ChannelViewHolder(view, mActionCommand);
+        ChannelViewHolder viewHolder = new ChannelViewHolder(view);
+        viewHolder.setOnExecuteCommand(mActionCommand);
         return viewHolder;
     }
 }
