@@ -1,14 +1,10 @@
-===================================
-[![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
-
-# Kripton
-===================================
+[![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 ![Logo](assets/logo.png)
 
+# Kripton
 Es una librería que permite a los desarrolladores crear aplicaciones robustas para Android implementando el patrón MVP de forma simple.
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 # License
 ```
 Copyright 2016 gigigo México
@@ -25,5 +21,3 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
-
-===================================
