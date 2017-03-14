@@ -23,7 +23,7 @@ import android.support.annotation.NonNull;
  * @param <T> Tipo de dato de retorno en la ejecución del comando.
  *
  * @author Juan Godínez Vera - 12/22/2016
- * @version 1.1.2
+ * @version 1.0.0
  * @since 1.0.0
  */
 public interface IKActionCommand<T> {

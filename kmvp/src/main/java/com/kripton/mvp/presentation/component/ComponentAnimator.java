@@ -28,8 +28,8 @@ import android.widget.Toast;
  * Clase para la manipulación animaciones de elementos de mensajes en la vista
  *
  * @author Juan Godínez Vera - 3/13/2017.
- * @version 1.1.2
- * @since 1.1.2
+ * @version 1.0.0
+ * @since 1.0.0
  */
 public class ComponentAnimator {
 

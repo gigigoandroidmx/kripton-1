@@ -33,8 +33,8 @@ import java.util.List;
  *
  * @author Juan Godínez Vera - 2/21/2017.
  * @author Daniel Moises Ruiz Pérez - 2/21/2017.
- * @version 1.1.2
- * @since 1.1.2
+ * @version 1.0.0
+ * @since 1.0.0
  */
 public abstract class KPresenter<T, V extends IKView>
         implements IKPresenter<V> {

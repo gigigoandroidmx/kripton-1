@@ -19,7 +19,7 @@ package com.kripton.mvp.domain;
  * Define la clase para manipulación de estatus de un response
  *
  * @author Juan Godínez Vera - 12/29/2016
- * @version 1.1.2
+ * @version 1.0.0
  * @since 1.0.0
  */
 public class EntryState

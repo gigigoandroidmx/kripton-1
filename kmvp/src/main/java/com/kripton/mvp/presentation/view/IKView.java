@@ -20,7 +20,7 @@ package com.kripton.mvp.presentation.view;
  *
  * @author Juan Godínez Vera - 3/2/2017
  * @author Daniel Moises Ruiz Pérez - 3/2/2017
- * @version 1.1.2
- * @since 1.1.2
+ * @version 1.0.0
+ * @since 1.0.0
  */
 public interface IKView { }

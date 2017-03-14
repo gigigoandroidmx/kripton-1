@@ -25,7 +25,7 @@ import java.util.List;
  *
  * @author Juan Godínez Vera - 12/28/2016
  * @author Daniel Moises Ruiz Pérez - 12/28/2016
- * @version 1.1.2
+ * @version 1.0.0
  * @since 1.0.0
  */
 public abstract class KInteractor<T>

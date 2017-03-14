@@ -26,7 +26,7 @@ import com.kripton.mvp.domain.callback.OnViewCallback;
  *
  * @author Juan Godínez Vera - 12/22/2016
  * @author Daniel Moises Ruiz Pérez - 12/22/2016
- * @version 1.1.2
+ * @version 1.0.0
  * @since 1.0.0
  */
 public interface IKInteractor<T> {

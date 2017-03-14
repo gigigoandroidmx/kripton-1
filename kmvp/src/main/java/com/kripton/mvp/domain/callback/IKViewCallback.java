@@ -21,7 +21,7 @@ package com.kripton.mvp.domain.callback;
  * @param <T> Representa el modelo de datos que retornará el interactor
  *
  * @author Juan Godínez Vera - 12/22/2016
- * @version 1.1.2
+ * @version 1.0.0
  * @since 1.0.0
  */
 public interface IKViewCallback<T> {
