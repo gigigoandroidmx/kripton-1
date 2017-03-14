@@ -1,0 +1,40 @@
+ext {
+
+    //Version
+    junitVersion = '4.12'
+    supportVersion = '23.4.0' //24.1.0
+    glideVersion = '3.7.0'
+    butterknifeVersion = '8.1.0'
+    butterknifeCompilerVersion = '8.1.0'
+
+
+    //Packages
+    junitPackage = 'junit'
+    supportPackage = 'com.android.support'
+    jakeWhartonPackage = 'com.jakewharton'
+    glidePackage = 'com.github.bumptech.glide'
+
+    testingDependencies = [
+            junit       : buildDependency(junitPackage, 'junit', junitVersion)
+    ]
+
+    //Support Libraries dependencies
+    supportDependencies = [
+            design      : buildDependency(supportPackage, 'design', supportVersion),
+            appcompat   : buildDependency(supportPackage, 'appcompat-v7', supportVersion),
+            cardview    : buildDependency(supportPackage, 'cardview-v7', supportVersion),
+            recyclerview: buildDependency(supportPackage, 'recyclerview-v7', supportVersion),
+    ]
+
+    //Butterknife dependencies
+    butterknifeDependencies = [
+            butterknife         : buildDependency(jakeWhartonPackage, 'butterknife', butterknifeVersion),
+            butterknifecompiler : buildDependency(jakeWhartonPackage, 'butterknife-compiler', butterknifeVersion),
+    ]
+
+    glide = buildDependency(glidePackage, 'glide', glideVersion)
+}
+
+String buildDependency(String pack, String dependency, String version) {
+    return "${pack}:${dependency}:${version}"
+}
