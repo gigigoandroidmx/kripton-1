@@ -20,7 +20,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.kripton.mvp.presentation.IKCommandContract;
+import com.kripton.mvp.presentation.command.IKActionCommand;
 
 /**
  * Clase base para el viewholder del recycler
@@ -28,7 +28,7 @@ import com.kripton.mvp.presentation.IKCommandContract;
  * @param <T> Modelo de datos que utilizará el viewholder
  *
  * @author Juan Godínez Vera - 12/22/2016
- * @version 1.0.0
+ * @version 1.1.2
  * @since 1.0.0
  */
 public abstract class KViewHolder<T>
@@ -43,7 +43,7 @@ public abstract class KViewHolder<T>
         mContext = itemView.getContext();
     }
 
-    public void setOnExecuteCommand(final IKCommandContract.IActionCommand<T> actionCommand) {
+    public void setOnExecuteCommand(final IKActionCommand<T> actionCommand) {
         if(actionCommand != null) {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

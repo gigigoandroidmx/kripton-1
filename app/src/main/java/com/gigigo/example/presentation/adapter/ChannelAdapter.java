@@ -5,7 +5,7 @@ import android.view.ViewGroup;
 
 import com.gigigo.example.R;
 import com.gigigo.example.data.entities.Item;
-import com.kripton.mvp.presentation.IKCommandContract;
+import com.kripton.mvp.presentation.command.IKActionCommand;
 import com.kripton.mvp.presentation.adapter.KAdapter;
 import com.kripton.mvp.presentation.adapter.KViewHolder;
 
@@ -17,9 +17,9 @@ import com.kripton.mvp.presentation.adapter.KViewHolder;
 public class ChannelAdapter
         extends KAdapter<Item> {
 
-    private IKCommandContract.IActionCommand<Item> mActionCommand;
+    private IKActionCommand<Item> mActionCommand;
 
-    public ChannelAdapter(IKCommandContract.IActionCommand<Item> actionCommand) {
+    public ChannelAdapter(IKActionCommand<Item> actionCommand) {
         mActionCommand = actionCommand;
     }
 

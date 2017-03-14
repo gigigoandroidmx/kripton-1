@@ -8,9 +8,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.gigigo.example.R;
 import com.gigigo.example.data.entities.ChannelItem;
@@ -18,9 +15,11 @@ import com.gigigo.example.data.entities.Item;
 import com.gigigo.example.domain.interactor.YoutubeInteractor;
 import com.gigigo.example.presentation.adapter.ChannelAdapter;
 import com.gigigo.example.presentation.base.KBaseFragment;
-import com.kripton.mvp.presentation.IKCommandContract;
-import com.kripton.mvp.presentation.fragment.KFragment;
-import com.kripton.mvp.presentation.presenter.KPresenter;
+import com.gigigo.example.presentation.presenter.KPresenterBase;
+import com.gigigo.example.presentation.view.IKViewBaseDEP;
+import com.kripton.mvp.domain.interactor.IKInteractor;
+import com.kripton.mvp.presentation.command.IKActionCommand;
+import com.kripton.mvp.presentation.presenter.IKPresenter;
 
 import butterknife.BindView;
 
@@ -28,7 +27,7 @@ import butterknife.BindView;
  * A simple {@link Fragment} subclass.
  */
 public class ChannelFragment
-        extends KBaseFragment<ChannelItem, KPresenter<ChannelItem>> {
+        extends KBaseFragment implements IKViewBaseDEP<ChannelItem> {
 
     @BindView(R.id.swipe_refresh_view)
     SwipeRefreshLayout swipeRefreshLayout;
@@ -38,6 +37,8 @@ public class ChannelFragment
 
     private ChannelAdapter mAdapter;
     private boolean mIsRefreshing;
+
+    private IKPresenter mChannelPresenter;
 
     public static ChannelFragment newInstance() {
         return new ChannelFragment();
@@ -49,7 +50,7 @@ public class ChannelFragment
         mAdapter = new ChannelAdapter(actionCommand);
     }
 
-    private IKCommandContract.IActionCommand<Item> actionCommand = new IKCommandContract.IActionCommand<Item>() {
+    private IKActionCommand<Item> actionCommand = new IKActionCommand<Item>() {
         @Override
         public void onExecute(@NonNull Item item) {
 
@@ -61,10 +62,26 @@ public class ChannelFragment
         public void onRefresh() {
             if(!mIsRefreshing) {
                 mIsRefreshing = true;
-                mPpresenter.loadData(true);
+                mChannelPresenter.loadData(true);
             }
         }
     };
+
+    private void onSwipeRefreshComplete() {
+        if(mIsRefreshing) {
+            mIsRefreshing = false;
+
+            if (swipeRefreshLayout != null) {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mChannelPresenter.loadData(false);
+    }
 
     @Override
     protected int getLayoutResourceId() {
@@ -83,19 +100,34 @@ public class ChannelFragment
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
         recyclerView.setAdapter(mAdapter);
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
     }
 
     @Override
-    protected KPresenter<ChannelItem> createPresenter() {
-        YoutubeInteractor interactor = new YoutubeInteractor();
-        return new KPresenter<>(interactor);
+    protected void initializePresenter() {
+        IKInteractor<ChannelItem> channelInteractor = new YoutubeInteractor();
+        mChannelPresenter = new KPresenterBase<ChannelItem>(channelInteractor);
+        mChannelPresenter.attachView(this);
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        mPpresenter.loadData(false);
+    protected void dispose() {
+        if(mChannelPresenter != null) {
+            mChannelPresenter.detachView();
+        }
     }
+
+    //region IKViewBaseDEP members
 
     @Override
     public void showDataEmpty() {
@@ -110,21 +142,12 @@ public class ChannelFragment
 
     @Override
     public void showData(ChannelItem data) {
+        hideErrorView();
         if(data.hasItems()) {
             mAdapter.clear();
             mAdapter.add(data.mItems);
         }
         onSwipeRefreshComplete();
-    }
-
-    private void onSwipeRefreshComplete() {
-        if(mIsRefreshing) {
-            mIsRefreshing = false;
-
-            if (swipeRefreshLayout != null) {
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        }
     }
 
     @Override
@@ -134,8 +157,11 @@ public class ChannelFragment
     }
 
     @Override
-    public void setProgressIndicator(boolean active) {
-        showProgressBar(active);
+    public void showProgressIndicator(boolean active) {
+        showProgressView(active);
         onSwipeRefreshComplete();
     }
+
+    //endregion
+
 }

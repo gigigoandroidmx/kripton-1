@@ -19,7 +19,8 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.kripton.mvp.domain.EntryState;
-import com.kripton.mvp.domain.IKCallbackContract;
+import com.kripton.mvp.domain.callback.IKViewCallback;
+import com.kripton.mvp.domain.callback.OnViewCallback;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -45,8 +46,9 @@ public class ServiceFactory {
     }
 
     public static <T> void createCall(Call<T> call,
-                                      IKCallbackContract.IViewExtendedCallback callback,
-                                      boolean cancelable) {
+                                      OnViewCallback callback,
+                                      boolean cancelable,
+                                      Object... params) {
         if(call == null) {
             throw new NullPointerException("Call is required");
         }
@@ -60,7 +62,7 @@ public class ServiceFactory {
                 call.cancel();
             }
 
-            Callback<T> enqueueCallback = getEnqueueCallback(callback);
+            Callback<T> enqueueCallback = getEnqueueCallback(callback, params);
             call.enqueue(enqueueCallback);
         } catch (Exception e) {
             Log.e(TAG, Log.getStackTraceString(e));
@@ -69,13 +71,13 @@ public class ServiceFactory {
     }
 
     @NonNull
-    private static <T> Callback<T> getEnqueueCallback(final IKCallbackContract.IViewExtendedCallback callback) {
+    private static <T> Callback<T> getEnqueueCallback(final OnViewCallback callback, final Object... params) {
         return new Callback<T>() {
             @Override
             public void onResponse(Call<T> call, Response<T> response) {
                 if(response != null) {
                     if(response.isSuccessful()) {
-                        callback.onSuccess(response.body());
+                        callback.onSuccess(response.body(), params);
                     } else {
                         EntryState entryState = handleErrorResponse(response.code());
                         callback.onDataNotAvailable(entryState);

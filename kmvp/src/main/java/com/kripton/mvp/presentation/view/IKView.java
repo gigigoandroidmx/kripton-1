@@ -1,4 +1,4 @@
-/* Copyright (c) 2016 Gigigo Android Development Team México
+/* Copyright (c) 2017 Gigigo Android Development Team México
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,24 +13,14 @@
  * limitations under the License.
  */
 
-package com.kripton.mvp.data;
-
-import java.util.List;
+package com.kripton.mvp.presentation.view;
 
 /**
- * Interfaz base para el repositorio del adapter
+ * Interfaz base para la vista
  *
- * @param <T> Modelo de datos que utilizará el repositorio
- *
- * @author Juan Godínez Vera - 12/22/2016
+ * @author Juan Godínez Vera - 3/2/2017
+ * @author Daniel Moises Ruiz Pérez - 3/2/2017
  * @version 1.1.2
- * @since 1.0.0
+ * @since 1.1.2
  */
-public interface IKRepository<T> {
-    void add(T item);
-    void add(Iterable<T> items);
-    void update(T item);
-    void remove(T item);
-    void clear();
-    List<T> query();
-}
+public interface IKView { }

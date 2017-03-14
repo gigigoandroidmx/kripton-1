@@ -9,12 +9,11 @@ import com.bumptech.glide.Glide;
 import com.gigigo.example.R;
 import com.gigigo.example.data.entities.Item;
 import com.gigigo.example.data.entities.Thumbnail;
-import com.kripton.mvp.presentation.IKCommandContract;
+import com.kripton.mvp.presentation.command.IKActionCommand;
 import com.kripton.mvp.presentation.adapter.KViewHolder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Define la clase para ...
@@ -42,7 +41,7 @@ public class ChannelViewHolder
     }
 
     @Override
-    public void setOnExecuteCommand(final IKCommandContract.IActionCommand<Item> actionCommand) {
+    public void setOnExecuteCommand(final IKActionCommand<Item> actionCommand) {
         if(actionCommand != null) {
             mPlayIcon.setOnClickListener(new View.OnClickListener() {
                 @Override

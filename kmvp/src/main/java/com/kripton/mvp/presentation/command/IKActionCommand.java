@@ -13,33 +13,19 @@
  * limitations under the License.
  */
 
-package com.kripton.mvp.presentation;
+package com.kripton.mvp.presentation.command;
 
 import android.support.annotation.NonNull;
 
 /**
- * Define los contratos base de los comandos para los adapters y presenters.
+ * Interfaz para la ejecución de un comando
+ *
+ * @param <T> Tipo de dato de retorno en la ejecución del comando.
  *
  * @author Juan Godínez Vera - 12/22/2016
- * @version 1.0.0
+ * @version 1.1.2
  * @since 1.0.0
  */
-public interface IKCommandContract {
-
-    /**
-     * Interfaz para la ejecución de un comando a través de una vista
-     *
-     * <ul>
-     * <li>{@link #onExecute(Object)}: Permite el manejo de la ejecución de un comando a través de l acción del usuario.</li>
-     * </ul>
-     *
-     * @param <T> Tipo de dato de retorno en la ejecución del comando.
-     *
-     * @author Juan Godínez Vera - 12/22/2016
-     * @version 1.0.0
-     * @since 1.0.0
-     */
-    interface IActionCommand<T> {
-        void onExecute(@NonNull T item);
-    }
+public interface IKActionCommand<T> {
+    void onExecute(@NonNull T item);
 }

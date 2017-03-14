@@ -15,7 +15,9 @@
 
 package com.kripton.mvp.presentation.presenter;
 
-import com.kripton.mvp.presentation.view.IKViewContract;
+import android.support.annotation.UiThread;
+
+import com.kripton.mvp.presentation.view.IKView;
 
 /**
  * Interfaz base para el presenter
@@ -23,13 +25,17 @@ import com.kripton.mvp.presentation.view.IKViewContract;
  * @param <V> Representa la vista para el despliegue de información
  *
  * @author Juan Godínez Vera - 12/22/2016
- * @version 1.0.0
+ * @author Daniel Moises Ruiz Pérez - 12/22/2016
+ * @version 1.1.2
  * @since 1.0.0
  */
-public interface IKPresenter<V extends IKViewContract.IViewExtended> {
+public interface IKPresenter<V extends IKView> {
+    @UiThread
     void attachView(V view);
+
+    @UiThread
     void detachView();
-    void onResume();
-    void onDestroy();
+
+    @UiThread
     void loadData(boolean forceUpdate);
 }

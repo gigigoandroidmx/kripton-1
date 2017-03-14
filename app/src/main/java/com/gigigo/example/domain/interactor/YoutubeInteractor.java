@@ -6,7 +6,7 @@ import com.gigigo.example.BuildConfig;
 import com.gigigo.example.data.entities.ChannelItem;
 import com.gigigo.example.domain.service.IYoutubeService;
 import com.kripton.extensions.retrofit.ServiceFactory;
-import com.kripton.mvp.domain.IKCallbackContract;
+import com.kripton.mvp.domain.callback.OnViewCallback;
 import com.kripton.mvp.domain.interactor.KInteractor;
 
 /**
@@ -14,9 +14,8 @@ import com.kripton.mvp.domain.interactor.KInteractor;
  */
 public class YoutubeInteractor
         extends KInteractor<ChannelItem> {
-
     @Override
-    public void getData(@NonNull IKCallbackContract.IViewExtendedCallback<ChannelItem> callback) {
+    public void execute(@NonNull OnViewCallback<ChannelItem> callback) {
         IYoutubeService service = ServiceFactory.createService(IYoutubeService.class);
 
         String part = "snippet,id",
@@ -27,7 +26,8 @@ public class YoutubeInteractor
 
         ServiceFactory.createCall(service.getChannelVideoList(part, channelId, order, maxResults, key),
                 callback,
-                false);
+                false,
+                mOperationType);
     }
 
     @Override

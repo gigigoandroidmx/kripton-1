@@ -13,24 +13,18 @@
  * limitations under the License.
  */
 
-package com.kripton.mvp.data;
-
-import java.util.List;
+package com.kripton.mvp.domain.callback;
 
 /**
- * Interfaz base para el repositorio del adapter
+ * Define los contratos base de callback entre el presenter y el interactor.
  *
- * @param <T> Modelo de datos que utilizará el repositorio
+ * @param <T> Representa el modelo de datos que retornará el interactor
  *
  * @author Juan Godínez Vera - 12/22/2016
  * @version 1.1.2
  * @since 1.0.0
  */
-public interface IKRepository<T> {
-    void add(T item);
-    void add(Iterable<T> items);
-    void update(T item);
-    void remove(T item);
-    void clear();
-    List<T> query();
+public interface IKViewCallback<T> {
+    void onSuccess(T data, Object... params);
+    void onError(Throwable exception);
 }

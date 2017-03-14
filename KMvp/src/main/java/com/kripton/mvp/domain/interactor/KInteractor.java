@@ -15,10 +15,6 @@
 
 package com.kripton.mvp.domain.interactor;
 
-import android.support.annotation.NonNull;
-
-import com.kripton.mvp.domain.IKCallbackContract;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +24,8 @@ import java.util.List;
  * @param <T> Modelo de datos que utilizará el interactor
  *
  * @author Juan Godínez Vera - 12/28/2016
- * @version 1.0.0
+ * @author Daniel Moises Ruiz Pérez - 12/28/2016
+ * @version 1.1.2
  * @since 1.0.0
  */
 public abstract class KInteractor<T>
@@ -86,9 +83,4 @@ public abstract class KInteractor<T>
         return defaultValue;
     }
 
-    @Override
-    public void getData(@NonNull IKCallbackContract.IViewExtendedCallback<T> callback) { }
-
-    @Override
-    public void refreshData() { }
 }

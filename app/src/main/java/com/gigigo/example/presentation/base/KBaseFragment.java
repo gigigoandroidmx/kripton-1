@@ -17,12 +17,10 @@ import butterknife.Unbinder;
  *
  * @author Juan Godínez Vera - 1/3/2017.
  */
-public abstract class KBaseFragment<T, P extends IKPresenter>
-        extends KFragment<T, P> {
+public abstract class KBaseFragment
+        extends KFragment {
 
     protected Unbinder mUnbinder;
-    protected abstract int getLayoutResourceId();
-    protected abstract void initializeComponent();
 
     @Nullable
     @Override
@@ -31,12 +29,6 @@ public abstract class KBaseFragment<T, P extends IKPresenter>
         View root = inflater.inflate(getLayoutResourceId(), container, false);
         mUnbinder = ButterKnife.bind(this, root);
         return root;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        initializeComponent();
     }
 
     @Override

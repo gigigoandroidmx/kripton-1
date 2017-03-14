@@ -18,73 +18,48 @@ package com.kripton.mvp.presentation.activity;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.kripton.mvp.R;
-import com.kripton.mvp.presentation.presenter.IKPresenter;
-import com.kripton.mvp.presentation.view.IKViewContract;
+import com.kripton.mvp.presentation.component.ComponentAnimator;
+import com.kripton.mvp.presentation.component.IKComponentView;
 
 /**
- * Clase base para el activity
+ * Clase base para el activity. Se implementan 4 métodos por defecto
  *
- * @param <T> Modelo de datos que utilizará la vista
- * @param <P> Presenter para la interacción de la vista
+ * <ul>
+ *     <li>{@link #getLayoutResourceId()} Recurso para inflar el activity.</li>
+ *     <li>{@link #initializeComponent()} Permite asegurar que los componentes serán inicializados una vez que la actividad ha sido creada.</li>
+ *     <li>{@link #initializePresenter()} Permite inicializar el presenter una vez que la actividad ha sido creada.</li>
+ *     <li>{@link #dispose()} Permite liberar los recursos que se utilizan en la implementación de la vista.</li>
+ * </ul>
  *
  * @author Juan Godínez Vera - 12/22/2016
- * @version 1.0.0
+ * @author Daniel Moises Ruiz Pérez - 12/22/2016
+ * @version 1.1.2
  * @since 1.0.0
  */
-public abstract class KActivity<T, P extends IKPresenter>
+public abstract class KActivity
         extends AppCompatActivity
-        implements IKViewContract.IViewExtended<T> {
+        implements IKComponentView {
 
     protected final String TAG = getClass().getSimpleName();
 
-    protected P mPresenter;
+    protected abstract int getLayoutResourceId();
+    protected abstract void initializeComponent();
+    protected abstract void initializePresenter();
+    protected abstract void dispose();
 
-    protected abstract P createPresenter();
+    private ComponentAnimator componentAnimator;
 
-    protected void showProgressBar(boolean active) {
-        ProgressBar loader = (ProgressBar)findViewById(R.id.progress_view);
-
-        if(loader != null) {
-            loader.setVisibility(active ? View.VISIBLE : View.GONE);
-        }
-    }
-    protected void hideErrorView() {
+    private void initializeComponentAnimator() {
+        componentAnimator = new ComponentAnimator(this);
         TextView errorView = (TextView)findViewById(R.id.error_view);
+        ProgressBar progressView = (ProgressBar)findViewById(R.id.progress_view);
 
-        if(errorView != null) {
-            errorView.setText("");
-            errorView.setVisibility(View.GONE);
-        }
-    }
-
-    protected void showErrorView(Throwable exception) {
-        if(exception != null) {
-            showErrorView(exception.getMessage());
-        }
-    }
-
-    protected void showErrorView(String message) {
-        showProgressBar(false);
-        TextView errorView = (TextView)findViewById(R.id.error_view);
-
-        if(errorView != null) {
-            errorView.setText(message);
-        }
-    }
-
-    protected void showToastMessage(String message) {
-        showProgressBar(false);
-        Toast toast = Toast.makeText(this, message, Toast.LENGTH_SHORT);
-
-        if(toast != null) {
-            toast.show();
-        }
+        componentAnimator.setErrorView(errorView);
+        componentAnimator.setProgressView(progressView);
     }
 
     //region Handling the Activity Lifecycle
@@ -96,20 +71,49 @@ public abstract class KActivity<T, P extends IKPresenter>
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
 
-        if(mPresenter == null) {
-            mPresenter = createPresenter();
-        }
-
-        mPresenter.attachView(this);
+        initializeComponentAnimator();
+        initializeComponent();
+        initializePresenter();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
 
-        if(mPresenter != null) {
-            mPresenter.onDestroy();
+        dispose();
+    }
+
+    //endregion
+
+    //region IKComponentView members
+
+    @Override
+    public void showProgressView(boolean active) {
+        if(active) {
+            componentAnimator.showProgressView();
+        } else {
+            componentAnimator.hideProgressView();
         }
+    }
+
+    @Override
+    public void hideErrorView() {
+        componentAnimator.hideErrorView();
+    }
+
+    @Override
+    public void showErrorView(Throwable throwable) {
+        componentAnimator.showErrorView(throwable);
+    }
+
+    @Override
+    public void showErrorView(String message) {
+        componentAnimator.showErrorView(message);
+    }
+
+    @Override
+    public void showToastMessage(String message) {
+        componentAnimator.showToastMessage(message);
     }
 
     //endregion

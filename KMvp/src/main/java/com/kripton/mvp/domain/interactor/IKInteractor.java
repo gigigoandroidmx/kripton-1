@@ -17,7 +17,7 @@ package com.kripton.mvp.domain.interactor;
 
 import android.support.annotation.NonNull;
 
-import com.kripton.mvp.domain.IKCallbackContract;
+import com.kripton.mvp.domain.callback.OnViewCallback;
 
 /**
  * Interfaz base para el interactor
@@ -25,12 +25,13 @@ import com.kripton.mvp.domain.IKCallbackContract;
  * @param <T> Modelo de datos que utilizará el interactor
  *
  * @author Juan Godínez Vera - 12/22/2016
- * @version 1.0.0
+ * @author Daniel Moises Ruiz Pérez - 12/22/2016
+ * @version 1.1.2
  * @since 1.0.0
  */
 public interface IKInteractor<T> {
     void setOperationType(int operationType);
     void setParams(Object... params);
-    void getData(@NonNull IKCallbackContract.IViewExtendedCallback<T> callback);
+    void execute(@NonNull OnViewCallback<T> callback);
     void refreshData();
 }

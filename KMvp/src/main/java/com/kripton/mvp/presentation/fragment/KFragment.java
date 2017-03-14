@@ -18,83 +18,50 @@ package com.kripton.mvp.presentation.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.kripton.mvp.R;
-import com.kripton.mvp.presentation.presenter.IKPresenter;
-import com.kripton.mvp.presentation.view.IKViewContract;
+import com.kripton.mvp.presentation.component.ComponentAnimator;
+import com.kripton.mvp.presentation.component.IKComponentView;
 
 /**
- * Interfaz base para el fragment
+ * Clase base para el fragment. Se implementan 4 métodos por defecto
  *
- * @param <T> Modelo de datos que utilizará la vista
- * @param <P> Presenter para la interacción de la vista
+ * <ul>
+ *     <li>{@link #getLayoutResourceId()} Recurso para inflar el fragmento.</li>
+ *     <li>{@link #initializeComponent()} Permite asegurar que los componentes serán inicializados una vez que la actividad ha sido creada.</li>
+ *     <li>{@link #initializePresenter()} Permite inicializar el presenter una vez que la actividad ha sido creada.</li>
+ *     <li>{@link #dispose()} Permite liberar los recursos que se utilizan en la implementación de la vista.</li>
+ * </ul>
  *
  * @author Juan Godínez Vera - 12/22/2016
- * @version 1.0.0
+ * @author Daniel Moises Ruiz Pérez - 12/22/2016
+ * @version 1.1.2
  * @since 1.0.0
  */
-public abstract class KFragment<T, P extends IKPresenter>
-        extends Fragment implements IKViewContract.IViewExtended<T> {
+public abstract class KFragment
+        extends Fragment
+        implements IKComponentView {
 
     protected final String TAG = getClass().getSimpleName();
 
-    protected P mPpresenter;
+    protected abstract int getLayoutResourceId();
+    protected abstract void initializeComponent();
+    protected abstract void initializePresenter();
+    protected abstract void dispose();
 
-    protected abstract P createPresenter();
+    private ComponentAnimator componentAnimator;
 
-    protected void showProgressBar(boolean active) {
+    private void initializeComponentAnimator() {
         if(getView() == null) return;
 
-        ProgressBar loader = (ProgressBar)getView().findViewById(R.id.progress_view);
-
-        if(loader != null) {
-            if(active) hideErrorView();
-            loader.setVisibility(active ? View.VISIBLE : View.GONE);
-        }
-    }
-
-    protected void hideErrorView() {
-        if(getView() == null) return;
-
+        componentAnimator = new ComponentAnimator(getContext());
         TextView errorView = (TextView)getView().findViewById(R.id.error_view);
+        ProgressBar progressView = (ProgressBar)getView().findViewById(R.id.progress_view);
 
-        if(errorView != null) {
-            errorView.setText("");
-            errorView.setVisibility(View.GONE);
-        }
-    }
-
-    protected void showErrorView(Throwable exception) {
-        if(exception != null) {
-            showErrorView(exception.getMessage());
-        }
-    }
-
-    protected void showErrorView(String message) {
-        if(getView() == null) return;
-
-        showProgressBar(false);
-        TextView errorView = (TextView)getView().findViewById(R.id.error_view);
-
-        if(errorView != null) {
-            errorView.setVisibility(View.VISIBLE);
-            errorView.setText(message);
-        }
-    }
-
-    protected void showToastMessage(String message) {
-        if(getView() == null) return;
-
-        showProgressBar(false);
-        Toast toast = Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT);
-
-        if(toast != null) {
-            toast.show();
-        }
+        componentAnimator.setErrorView(errorView);
+        componentAnimator.setProgressView(progressView);
     }
 
     //region Handling the Fragment Lifecycle
@@ -110,12 +77,9 @@ public abstract class KFragment<T, P extends IKPresenter>
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        if(mPpresenter == null) {
-            mPpresenter = createPresenter();
-        }
-
-        mPpresenter.attachView(this);
+        initializeComponentAnimator();
+        initializeComponent();
+        initializePresenter();
     }
 
     // -------------------------------------------------------
@@ -125,9 +89,7 @@ public abstract class KFragment<T, P extends IKPresenter>
     public void onDestroy() {
         super.onDestroy();
 
-        if(mPpresenter != null) {
-            mPpresenter.onDestroy();
-        }
+        dispose();
     }
 
     @Override
@@ -136,4 +98,38 @@ public abstract class KFragment<T, P extends IKPresenter>
     }
 
     //endregion
+
+    //region IKComponentView members
+
+    @Override
+    public void showProgressView(boolean active) {
+        if(active) {
+            componentAnimator.showProgressView();
+        } else {
+            componentAnimator.hideProgressView();
+        }
+    }
+
+    @Override
+    public void hideErrorView() {
+        componentAnimator.hideErrorView();
+    }
+
+    @Override
+    public void showErrorView(Throwable throwable) {
+        componentAnimator.showErrorView(throwable);
+    }
+
+    @Override
+    public void showErrorView(String message) {
+        componentAnimator.showErrorView(message);
+    }
+
+    @Override
+    public void showToastMessage(String message) {
+        componentAnimator.showToastMessage(message);
+    }
+
+    //endregion
+
 }
