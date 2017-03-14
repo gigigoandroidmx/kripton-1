@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import com.kripton.extensions.retrofit.IConnectivity;
+import com.gigigo.example.retrofit.IConnectivity;
 
 import java.io.IOException;
 import java.net.InetAddress;

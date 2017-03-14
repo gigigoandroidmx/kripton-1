@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.kripton.extensions.retrofit;
+package com.gigigo.example.retrofit;
 
 /**
  * Define la interfaz base para la validación de conexión de red.
