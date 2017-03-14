@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.gigigo.example.BuildConfig;
 import com.gigigo.example.R;
-import com.kripton.extensions.retrofit.ServiceGenerator;
+import com.gigigo.example.retrofit.ServiceGenerator;
 
 import java.io.IOException;
 
