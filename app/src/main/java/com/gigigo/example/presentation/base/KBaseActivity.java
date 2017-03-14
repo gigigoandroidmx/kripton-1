@@ -1,7 +1,7 @@
 package com.gigigo.example.presentation.base;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 
 import com.kripton.mvp.presentation.activity.KActivity;
 
@@ -17,9 +17,8 @@ public abstract class KBaseActivity
     protected Unbinder mUnbinder;
 
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(getLayoutResourceId());
         mUnbinder = ButterKnife.bind(this);
     }

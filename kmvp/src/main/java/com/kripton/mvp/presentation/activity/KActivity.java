@@ -16,7 +16,7 @@
 package com.kripton.mvp.presentation.activity;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -68,9 +68,8 @@ public abstract class KActivity
     // ----------------------- Created -----------------------
     // -------------------------------------------------------
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         initializeComponentAnimator();
         initializeComponent();
         initializePresenter();
