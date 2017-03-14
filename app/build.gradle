@@ -1,10 +1,24 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+    }
+}
+
 apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
 
-def STRING   = "String";
-def HOST_APP = "HOST_APP";
+def STRING = "String";
 
-def ID_USER = "ID_USER";
-def KEY_GOOGLE = "KEY_GOOGLE";
+def APP_HOST = "APP_HOST";
+def APP_FOLDER = "APP_FOLDER";
+def APP_REST_URI = "APP_REST_URI";
+def PATH_CHANNEL = "PATH_CHANNEL";
+
+def API_KEY = "API_KEY";
+def CHANNEL_ID = "CHANNEL_ID";
 
 android {
     compileSdkVersion 23
@@ -17,9 +31,13 @@ android {
         versionCode 1
         versionName "1.0"
 
-        buildConfigField STRING, HOST_APP, '"https://www.googleapis.com/youtube/v3/"'
-        buildConfigField STRING, ID_USER, '"UCVHFbqXqoYvEWM1Ddxl0QDg"'
-        buildConfigField STRING, KEY_GOOGLE, '"AIzaSyBPlVYsLeKqj9u7wjIQFzamljTaFKPVFSE"'
+        buildConfigField STRING, APP_HOST, '"https://www.googleapis.com/"'
+        buildConfigField STRING, APP_FOLDER, '"youtube/"'
+        buildConfigField STRING, APP_REST_URI, APP_HOST.concat(' + ').concat(APP_FOLDER).concat(' + "v3/"')
+        buildConfigField STRING, PATH_CHANNEL, APP_REST_URI.concat(' + "search"')
+
+        buildConfigField STRING, API_KEY, '"AIzaSyADicFoj0c_WP0E3XVpxeeiG7Db29Vrt-g"' // {YOUR_API_KEY}
+        buildConfigField STRING, CHANNEL_ID, '"UCVHFbqXqoYvEWM1Ddxl0QDg"' // Android Developers
     }
     buildTypes {
         release {
@@ -31,10 +49,20 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:recyclerview-v7:23.4.0'
-    compile project(path: ':KMvp')
-    compile project(path: ':KExtensions')
+
+    compile testingDependencies.junit
+
+    compile supportDependencies.design
+    compile supportDependencies.appcompat
+    compile supportDependencies.cardview
+    compile supportDependencies.recyclerview
+
+    compile glide
+
+    compile butterknifeDependencies.butterknife
+    apt butterknifeDependencies.butterknifecompiler
+
+    compile project(path: ':kmvp')
+    compile project(path: ':kretrofitextensions')
 }
 

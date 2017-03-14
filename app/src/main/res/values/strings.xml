@@ -1,4 +1,9 @@
 <resources>
-    <string name="app_name">Kripton</string>
-    <string name="title_dialog_load">Cargando…</string>
+    <string name="app_name">Kripton Sample</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="error_message_connection_off">It looks like your internet connection is off.\nPlease turn it on and try again.</string>
 </resources>
