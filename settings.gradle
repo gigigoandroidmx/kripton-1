@@ -1,1 +1,1 @@
-include ':app', ':kretrofitextensions', ':kmvp'
+include ':app', ':kmvp'

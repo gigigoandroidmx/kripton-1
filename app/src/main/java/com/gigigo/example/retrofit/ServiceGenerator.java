@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.kripton.extensions.retrofit;
+package com.gigigo.example.retrofit;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

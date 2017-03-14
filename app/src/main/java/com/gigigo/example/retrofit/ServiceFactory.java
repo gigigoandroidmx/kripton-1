@@ -13,13 +13,12 @@
  * limitations under the License.
  */
 
-package com.kripton.extensions.retrofit;
+package com.gigigo.example.retrofit;
 
 import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.kripton.mvp.domain.EntryState;
-import com.kripton.mvp.domain.callback.IKViewCallback;
 import com.kripton.mvp.domain.callback.OnViewCallback;
 
 import java.io.IOException;

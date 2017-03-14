@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import com.gigigo.example.BuildConfig;
 import com.gigigo.example.data.entities.ChannelItem;
 import com.gigigo.example.domain.service.IYoutubeService;
-import com.kripton.extensions.retrofit.ServiceFactory;
+import com.gigigo.example.retrofit.ServiceFactory;
 import com.kripton.mvp.domain.callback.OnViewCallback;
 import com.kripton.mvp.domain.interactor.KInteractor;
 
