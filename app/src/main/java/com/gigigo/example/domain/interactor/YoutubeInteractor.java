@@ -24,10 +24,13 @@ public class YoutubeInteractor
                 maxResults = "40",
                 key = BuildConfig.API_KEY;
 
+        String text = tryGetParamValueAs(String.class, 0);
+        int valor = tryGetParamValueAs(Integer.class, 1);
+
         ServiceFactory.createCall(service.getChannelVideoList(part, channelId, order, maxResults, key),
                 callback,
                 false,
-                mOperationType);
+                getOperationType());
     }
 
     @Override

@@ -20,6 +20,7 @@ import com.gigigo.example.presentation.view.IKViewBaseDEP;
 import com.kripton.mvp.domain.interactor.IKInteractor;
 import com.kripton.mvp.presentation.command.IKActionCommand;
 import com.kripton.mvp.presentation.presenter.IKPresenter;
+import com.kripton.mvp.presentation.presenter.KPresenter;
 
 import butterknife.BindView;
 
@@ -38,7 +39,7 @@ public class ChannelFragment
     private ChannelAdapter mAdapter;
     private boolean mIsRefreshing;
 
-    private IKPresenter mChannelPresenter;
+    private KPresenter mChannelPresenter;
 
     public static ChannelFragment newInstance() {
         return new ChannelFragment();
@@ -80,6 +81,8 @@ public class ChannelFragment
     @Override
     public void onResume() {
         super.onResume();
+        mChannelPresenter.addParam("hello");
+        mChannelPresenter.addParam(15);
         mChannelPresenter.loadData(false);
     }
 

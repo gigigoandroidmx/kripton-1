@@ -28,15 +28,14 @@ import com.kripton.mvp.presentation.command.IKActionCommand;
  * @param <T> Modelo de datos que utilizará el viewholder
  *
  * @author Juan Godínez Vera - 12/22/2016
- * @version 1.0.0
+ * @version 1.0.2
  * @since 1.0.0
  */
 public abstract class KViewHolder<T>
         extends RecyclerView.ViewHolder {
 
-    protected Context mContext;
-
     private T mItem;
+    private Context mContext;
 
     public KViewHolder(View itemView) {
         super(itemView);

@@ -15,7 +15,6 @@
 
 package com.kripton.mvp.domain.interactor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,7 +24,7 @@ import java.util.List;
  *
  * @author Juan Godínez Vera - 12/28/2016
  * @author Daniel Moises Ruiz Pérez - 12/28/2016
- * @version 1.0.0
+ * @version 1.0.2
  * @since 1.0.0
  */
 public abstract class KInteractor<T>
@@ -33,8 +32,8 @@ public abstract class KInteractor<T>
 
     protected static final String EMPTY_PARAMS = "Params not found. Params are required for HTTP request";
 
-    protected int mOperationType;
-    protected List<Object> mParams;
+    private int mOperationType;
+    private List<Object> mParams;
 
     public boolean hasParams() {
         return mParams != null && mParams.size() > 0;
@@ -46,13 +45,8 @@ public abstract class KInteractor<T>
     }
 
     @Override
-    public void setParams(Object... params) {
-        if(params != null && params.length > 0) {
-            mParams = new ArrayList<>();
-            for(Object item : params) {
-                mParams.add(item);
-            }
-        }
+    public void setParams(List<Object> params) {
+        mParams = params;
     }
 
     public <T> T tryGetParamValueAs(Class<T> classType, int index) {
@@ -63,7 +57,8 @@ public abstract class KInteractor<T>
         if(hasParams()) {
             try {
                 if(index < mParams.size()) {
-                    return as(classType, mParams.get(index), defaultValue);
+                    Object object = mParams.get(index);
+                    return as(classType, object, defaultValue);
                 } else {
                     return defaultValue;
                 }
@@ -83,4 +78,11 @@ public abstract class KInteractor<T>
         return defaultValue;
     }
 
+    public int getOperationType() {
+        return mOperationType;
+    }
+
+    private List<Object> getParams() {
+        return mParams;
+    }
 }

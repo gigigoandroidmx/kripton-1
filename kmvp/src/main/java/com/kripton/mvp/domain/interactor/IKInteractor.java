@@ -19,6 +19,8 @@ import android.support.annotation.NonNull;
 
 import com.kripton.mvp.domain.callback.OnViewCallback;
 
+import java.util.List;
+
 /**
  * Interfaz base para el interactor
  *
@@ -26,12 +28,12 @@ import com.kripton.mvp.domain.callback.OnViewCallback;
  *
  * @author Juan Godínez Vera - 12/22/2016
  * @author Daniel Moises Ruiz Pérez - 12/22/2016
- * @version 1.0.0
+ * @version 1.0.2
  * @since 1.0.0
  */
 public interface IKInteractor<T> {
     void setOperationType(int operationType);
-    void setParams(Object... params);
+    void setParams(List<Object> mParams);
     void execute(@NonNull OnViewCallback<T> callback);
     void refreshData();
 }

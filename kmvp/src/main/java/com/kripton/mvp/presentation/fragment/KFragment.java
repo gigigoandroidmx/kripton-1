@@ -37,7 +37,7 @@ import com.kripton.mvp.presentation.component.IKComponentView;
  *
  * @author Juan Godínez Vera - 12/22/2016
  * @author Daniel Moises Ruiz Pérez - 12/22/2016
- * @version 1.0.0
+ * @version 1.0.2
  * @since 1.0.0
  */
 public abstract class KFragment
@@ -77,9 +77,9 @@ public abstract class KFragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initializeComponentAnimator();
-        initializeComponent();
         initializePresenter();
+        initializeComponent();
+        initializeComponentAnimator();
     }
 
     // -------------------------------------------------------

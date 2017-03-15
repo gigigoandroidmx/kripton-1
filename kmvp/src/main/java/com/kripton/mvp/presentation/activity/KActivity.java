@@ -37,7 +37,7 @@ import com.kripton.mvp.presentation.component.IKComponentView;
  *
  * @author Juan Godínez Vera - 12/22/2016
  * @author Daniel Moises Ruiz Pérez - 12/22/2016
- * @version 1.0.0
+ * @version 1.0.2
  * @since 1.0.0
  */
 public abstract class KActivity
@@ -70,9 +70,9 @@ public abstract class KActivity
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initializeComponentAnimator();
-        initializeComponent();
         initializePresenter();
+        initializeComponent();
+        initializeComponentAnimator();
     }
 
     @Override
